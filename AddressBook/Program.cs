@@ -1,7 +1,13 @@
+using AddressBook.Entities.Person;
+using AddressBook.Infrastructure.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services
+    .AddPersonEntity()
+    .AddScoped<DataService>()
+    .AddRazorPages();
 
 var app = builder.Build();
 
