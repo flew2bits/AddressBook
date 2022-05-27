@@ -4,3 +4,24 @@
 }
 @Model.Person!.FirstName
 @Model.Person!.LastName
+@foreach (var address in Model.Person!.Addresses)
+{
+    <div>@address.Street, @address.ZipCode</div>
+    <form method="post" asp-page-handler="DeleteAddress">
+        <input type="hidden" name="Street" value="@address.Street"/>
+        <input type="hidden" name="ZipCode" value="@address.ZipCode"/>
+        <button type="submit">Delete Address</button>
+    </form>
+}
+
+<form method="post" asp-page-handler="Addresses">
+     <input type="text" name="Street"/>
+     <input type="text" name="ZipCode"/>
+    <button type="submit">Add Address</button>
+</form>
+
+<form method="post" asp-page-handler="PhoneNumber">
+    <label for="phone">Enter your phone number:</label>
+     <input type="text" name="Number"/>
+    <button type="submit">Add Phone Number</button>
+</form>

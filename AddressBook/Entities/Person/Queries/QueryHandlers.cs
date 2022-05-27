@@ -5,9 +5,9 @@ namespace AddressBook.Entities.Person.Queries
 {
     public class QueryHandlers : IQueryHandler<GetAllPersonQuery, IEnumerable<Person>>, IQueryHandler<GetPersonByIdQuery, Person?>
     {
-        private readonly PersonService person;
+        private readonly IPersonService person;
 
-        public QueryHandlers(PersonService person)
+        public QueryHandlers(IPersonService person)
         {
             this.person = person;
         }

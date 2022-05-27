@@ -10,7 +10,7 @@ public sealed class LiteDbPersonService : IPersonService, IDisposable
     {
         BsonMapper.Global.Entity<Person>()
             .Id(p => p.Id)
-            .Ctor(doc => new Person(doc["_id"].AsGuid, doc["FirstName"].AsString, doc["LastName"].AsString));
+            .Ctor(doc => new Person(doc["_id"].AsGuid, doc["FirstName"].AsString, doc["LastName"].AsString, Array.Empty<Address>(), Array.Empty<PhoneNumber>()));
     }
 
     private readonly LiteDatabase _db;
@@ -45,5 +45,12 @@ public sealed class LiteDbPersonService : IPersonService, IDisposable
     public void Dispose()
     {
         _db.Dispose();
+    }
+
+    public void UpdatePerson(Person newPerson)
+    {
+        if (!Exists(newPerson.Id)) throw new InvalidOperationException("person does not exist");
+        _collection.Update(newPerson);
+
     }
 }

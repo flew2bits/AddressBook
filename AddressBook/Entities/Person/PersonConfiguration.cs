@@ -11,6 +11,9 @@ public static class PersonConfiguration
         services.AddQueryHandler<GetAllPersonQuery, IEnumerable<Person>, QueryHandlers>();
         services.AddQueryHandler<GetPersonByIdQuery, Person?, QueryHandlers>();
         services.AddCommandHandler<AddPersonCommand, CommandHandlers>();
+        services.AddCommandHandler<AddAddressToPersonCommand, CommandHandlers>();
+        services.AddCommandHandler<DeleteAddressFromPersonCommand, CommandHandlers>();
+        services.AddCommandHandler<AddPhoneNumberCommand, CommandHandlers>();
         return services;
     }
 }

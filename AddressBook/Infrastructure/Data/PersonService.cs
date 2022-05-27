@@ -7,10 +7,7 @@ public class PersonService : IPersonService
 {
     private readonly ConcurrentDictionary<Guid, Person> _data = new();
 
-    public PersonService()
-    {
-        AddPerson(new Person(Guid.NewGuid(), "Danielle", "Barlow"));
-    }
+
 
     public Person? GetPersonById(Guid id)
         => _data.TryGetValue(id, out var person) ? person : null;
@@ -27,5 +24,10 @@ public class PersonService : IPersonService
         if (newPerson.Id == Guid.Empty) throw new InvalidOperationException("person must have a valid id");
         if (_data.ContainsKey(newPerson.Id)) throw new InvalidOperationException("person already exists");
         if (!_data.TryAdd(newPerson.Id, newPerson)) throw new InvalidOperationException("could not add person");
+    }
+
+    public void UpdatePerson(Person newPerson)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -8,4 +8,5 @@ public interface IPersonService
     IEnumerable<Person> SearchPersons(string search);
     IEnumerable<Person> GetAllPersons();
     void AddPerson(Person newPerson);
+    void UpdatePerson(Person newPerson);
 }
