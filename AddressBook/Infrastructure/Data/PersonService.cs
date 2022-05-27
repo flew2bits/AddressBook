@@ -7,6 +7,11 @@ public class PersonService
 {
     private readonly ConcurrentDictionary<Guid, Person> _data = new();
 
+    public PersonService()
+    {
+        AddPerson(new Person(Guid.NewGuid(), "Danielle", "Barlow"));
+    }
+
     public Person? GetPersonById(Guid id)
         => _data.TryGetValue(id, out var person) ? person : null;
 

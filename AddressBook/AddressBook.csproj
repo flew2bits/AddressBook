@@ -7,9 +7,4 @@
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
-    <ItemGroup>
-      <Folder Include="Entities\Person\Commands" />
-      <Folder Include="Entities\Person\Queries" />
-    </ItemGroup>
-
 </Project>
