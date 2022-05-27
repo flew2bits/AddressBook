@@ -3,7 +3,7 @@ using AddressBook.Entities.Person;
 
 namespace AddressBook.Infrastructure.Data;
 
-public class PersonService
+public class PersonService : IPersonService
 {
     private readonly ConcurrentDictionary<Guid, Person> _data = new();
 
@@ -19,8 +19,14 @@ public class PersonService
 
     public void AddPerson(Person newPerson)
     {
-        if (newPerson.Id == Guid.Empty) throw new InvalidOperationException("person must have a valid id");
-        if (_data.ContainsKey(newPerson.Id)) throw new InvalidOperationException("person already exists");
-        if (!_data.TryAdd(newPerson.Id, newPerson)) throw new InvalidOperationException("could not add person");
+        if (newPerson.PersonId == Guid.Empty) throw new InvalidOperationException("person must have a valid id");
+        if (_data.ContainsKey(newPerson.PersonId)) throw new InvalidOperationException("person already exists");
+        if (!_data.TryAdd(newPerson.PersonId, newPerson)) throw new InvalidOperationException("could not add person");
+    }
+
+    public void UpdatePerson(Person person)
+    {
+        if (!_data.ContainsKey(person.PersonId)) throw new InvalidOperationException("person doesn't exist");
+        _data[person.PersonId] = person;
     }
 }

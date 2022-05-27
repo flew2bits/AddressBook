@@ -7,9 +7,9 @@ public class QueryHandlers
     : IQueryHandler<GetAllPersonQuery, IEnumerable<Person>>,
         IQueryHandler<GetPersonByIdQuery, Person?>
 {
-    private readonly PersonService _personService;
+    private readonly IPersonService _personService;
 
-    public QueryHandlers(PersonService personService)
+    public QueryHandlers(IPersonService personService)
     {
         _personService = personService;
     }

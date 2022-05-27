@@ -10,5 +10,7 @@ public static class PersonConfiguration
         => services
             .AddQueryHandler<GetAllPersonQuery, IEnumerable<Person>, QueryHandlers>()
             .AddQueryHandler<GetPersonByIdQuery, Person?, QueryHandlers>()
-            .AddCommandHandler<AddPersonCommand, CommandHandlers>();
+            .AddCommandHandler<AddPersonCommand, CommandHandlers>()
+            .AddCommandHandler<AddPhoneNumberToPersonCommand, CommandHandlers>()
+            .AddCommandHandler<RemovePhoneNumberFromPersonCommand, CommandHandlers>();
 }
