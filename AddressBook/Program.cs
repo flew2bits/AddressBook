@@ -6,7 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services
     .AddPersonEntity()
-    .AddScoped<PersonService>()
+    .Configure<LiteDbPersonServiceOptions>(options => options.DatabasePath = "addresses.db")
+    .AddScoped<IPersonService, LiteDbPersonService>()
     .AddRazorPages();
 
 var app = builder.Build();

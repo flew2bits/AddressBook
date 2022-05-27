@@ -3,7 +3,7 @@ using AddressBook.Entities.Person;
 
 namespace AddressBook.Infrastructure.Data;
 
-public class PersonService
+public class PersonService : IPersonService
 {
     private readonly ConcurrentDictionary<Guid, Person> _data = new();
 
