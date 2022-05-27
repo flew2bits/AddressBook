@@ -4,7 +4,7 @@ using Microsoft.Extensions.Options;
 
 namespace AddressBook.Infrastructure.Data;
 
-public class LiteDbPersonService : IPersonService
+public sealed class LiteDbPersonService : IPersonService, IDisposable
 {
     static LiteDbPersonService()
     {
@@ -13,12 +13,13 @@ public class LiteDbPersonService : IPersonService
             .Ctor(doc => new Person(doc["_id"].AsGuid, doc["FirstName"].AsString, doc["LastName"].AsString));
     }
 
+    private readonly LiteDatabase _db;
     private readonly ILiteCollection<Person> _collection;
 
     public LiteDbPersonService(IOptions<LiteDbPersonServiceOptions> options)
     {
-        var db = new LiteDatabase(options.Value.DatabasePath);
-        _collection = db.GetCollection<Person>();
+        _db = new LiteDatabase(options.Value.DatabasePath);
+        _collection = _db.GetCollection<Person>();
         _collection.EnsureIndex(p => p.FirstName);
         _collection.EnsureIndex(p => p.LastName);
     }
@@ -39,5 +40,10 @@ public class LiteDbPersonService : IPersonService
         if (newPerson.Id == Guid.Empty) throw new InvalidOperationException("person id is invalid");
         if (Exists(newPerson.Id)) throw new InvalidOperationException("person already exists");
         _collection.Insert(newPerson);
+    }
+
+    public void Dispose()
+    {
+        _db.Dispose();
     }
 }
