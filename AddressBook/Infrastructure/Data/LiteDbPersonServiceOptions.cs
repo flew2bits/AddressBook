@@ -2,5 +2,5 @@
 
 public class LiteDbPersonServiceOptions
 {
-    public string DatabasePath { get; set; }
+    public string? DatabasePath { get; set; }
 }
