@@ -11,7 +11,7 @@ builder.Services
     .AddRazorPages();
 //
 BsonMapper.Global.Entity<Person>()
-    .Id(p => p.PersonId)
+    // .Id(p => p.Id)
     .Ctor(doc =>
     {
         var phoneNumbers = doc["PhoneNumbers"].AsArray.Select(pn => new PhoneNumber(pn["Number"].AsString, pn["Type"].AsString));

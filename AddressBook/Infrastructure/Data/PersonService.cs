@@ -19,14 +19,14 @@ public class PersonService : IPersonService
 
     public void AddPerson(Person newPerson)
     {
-        if (newPerson.PersonId == Guid.Empty) throw new InvalidOperationException("person must have a valid id");
-        if (_data.ContainsKey(newPerson.PersonId)) throw new InvalidOperationException("person already exists");
-        if (!_data.TryAdd(newPerson.PersonId, newPerson)) throw new InvalidOperationException("could not add person");
+        if (newPerson.Id == Guid.Empty) throw new InvalidOperationException("person must have a valid id");
+        if (_data.ContainsKey(newPerson.Id)) throw new InvalidOperationException("person already exists");
+        if (!_data.TryAdd(newPerson.Id, newPerson)) throw new InvalidOperationException("could not add person");
     }
 
     public void UpdatePerson(Person person)
     {
-        if (!_data.ContainsKey(person.PersonId)) throw new InvalidOperationException("person doesn't exist");
-        _data[person.PersonId] = person;
+        if (!_data.ContainsKey(person.Id)) throw new InvalidOperationException("person doesn't exist");
+        _data[person.Id] = person;
     }
 }

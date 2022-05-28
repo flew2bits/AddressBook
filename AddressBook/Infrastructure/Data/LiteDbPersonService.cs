@@ -16,7 +16,7 @@ public sealed class LiteDbPersonService : IPersonService, IDisposable
         _collection.EnsureIndex(p => p.LastName);
     }
 
-    private bool Exists(Guid id) => _collection.Exists(p => p.PersonId == id);
+    private bool Exists(Guid id) => _collection.Exists(p => p.Id == id);
     
     public Person? GetPersonById(Guid id)
     => _collection.FindById(id);
@@ -30,14 +30,14 @@ public sealed class LiteDbPersonService : IPersonService, IDisposable
 
     public void AddPerson(Person newPerson)
     {
-        if (newPerson.PersonId == Guid.Empty) throw new InvalidOperationException("person id is invalid");
-        if (Exists(newPerson.PersonId)) throw new InvalidOperationException("person already exists");
+        if (newPerson.Id == Guid.Empty) throw new InvalidOperationException("person id is invalid");
+        if (Exists(newPerson.Id)) throw new InvalidOperationException("person already exists");
         _collection.Insert(newPerson);
     }
 
     public void UpdatePerson(Person person)
     {
-        if (!Exists(person.PersonId)) throw new InvalidOperationException("person does not exist");
+        if (!Exists(person.Id)) throw new InvalidOperationException("person does not exist");
         _collection.Update(person);
     }
 
