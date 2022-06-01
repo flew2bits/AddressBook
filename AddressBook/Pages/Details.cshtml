@@ -1,27 +1,71 @@
 ﻿@page "{personId:guid}"
 @model AddressBook.Pages.DetailsModel
 @{
-}
+}@User.Identity.Name
+
+<code>@System.Text.Json.JsonSerializer.Serialize(Model.Person)</code>
 @Model.Person!.FirstName
 @Model.Person!.LastName
 @foreach (var address in Model.Person!.Addresses)
 {
     <div>@address.Street, @address.ZipCode</div>
     <form method="post" asp-page-handler="DeleteAddress">
-        <input type="hidden" name="Street" value="@address.Street"/>
-        <input type="hidden" name="ZipCode" value="@address.ZipCode"/>
+        <input type="hidden" name="Street" value="@address.Street" />
+        <input type="hidden" name="ZipCode" value="@address.ZipCode" />
         <button type="submit">Delete Address</button>
     </form>
 }
 
 <form method="post" asp-page-handler="Addresses">
-     <input type="text" name="Street"/>
-     <input type="text" name="ZipCode"/>
+    <label for="phone">Enter your Address: </label>
+    <input type="text" name="Street" />
+    <input type="text" name="ZipCode" />
     <button type="submit">Add Address</button>
 </form>
 
+@foreach (var phoneNumber in Model.Person!.PhoneNumbers)
+{
+    <div>@phoneNumber.Number</div>
+    <form method="post" asp-page-handler="DeletePhoneNumber">
+        <input type="hidden" name="PhoneNumber" value="@phoneNumber.Number" />
+
+        <button type="submit">Delete Phone Number</button>
+    </form>
+}
+
 <form method="post" asp-page-handler="PhoneNumber">
-    <label for="phone">Enter your phone number:</label>
-     <input type="text" name="Number"/>
+    <label for="phone">Enter your phone number: </label>
+    <input type="text" name="Number" />
     <button type="submit">Add Phone Number</button>
 </form>
+
+
+{
+
+@foreach (var socialMedia in Model.Person!.SocialMedia)
+{
+
+ <form method="post" asp-page-handler="SocialMedia">
+
+    <label for="socialMedia"> Choose your Social Media: </label>
+
+    <select name="socialMedia" id="socialMedia">
+        <option value="facebook">Facebook</option>
+        <option value="twitter">Twitter</option>
+        <option value="tiktok">TikTok</option>
+        <option value="instagram">Instagram</option>
+    </select>
+
+    <br />
+        <label for="socialMedia">Enter your Social Media Username: </label>
+        <input type="text" name="SocialMedia" />
+    <br />
+
+    <input type="submit" value="Submit" />
+
+</form>
+    
+}
+
+ 
+}
