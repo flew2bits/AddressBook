@@ -2,3 +2,17 @@
 @model AddressBook.Pages.Details
 
 <div>@Model.Person!.FirstName @Model.Person!.LastName</div>
+@foreach (var address in Model.Person!.Addresses)
+{
+    <form method="post" asp-page-handler="DeleteAddress">
+        <div>@address.Street, @address.ZipCode <button class="btn btn-danger btn-sm">Delete</button></div>
+        <input type="hidden" name="street" value="@address.Street" />
+        <input type="hidden" name="zipCode" value="@address.ZipCode" />
+    </form>
+}
+
+<form method="post" asp-page-handler="AddAddress">
+    <input type="text" name="street" />
+    <input type="text" name="zipCode" />
+    <button type="submit">Add Address</button>
+</form>

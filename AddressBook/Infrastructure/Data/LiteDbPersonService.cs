@@ -10,7 +10,7 @@ public sealed class LiteDbPersonService : IPersonService, IDisposable
     {
         BsonMapper.Global.Entity<Person>()
             .Id(p => p.Id)
-            .Ctor(doc => new Person(doc["_id"].AsGuid, doc["FirstName"].AsString, doc["LastName"].AsString));
+            .Ctor(doc => new Person(doc["_id"].AsGuid, doc["FirstName"].AsString, doc["LastName"].AsString, Array.Empty<Address>()));
     }
 
     private readonly LiteDatabase _db;
@@ -29,9 +29,9 @@ public sealed class LiteDbPersonService : IPersonService, IDisposable
     public Person? GetPersonById(Guid id) => _collection.FindById(id);
 
     public IEnumerable<Person> SearchPersons(string search)
-    {
-        throw new NotImplementedException();
-    }
+        => _collection.Find(p =>
+            p.FirstName.Contains(search, StringComparison.InvariantCultureIgnoreCase) ||
+            p.LastName.Contains(search, StringComparison.InvariantCultureIgnoreCase));
 
     public IEnumerable<Person> GetAllPersons() => _collection.FindAll();
 
@@ -40,6 +40,12 @@ public sealed class LiteDbPersonService : IPersonService, IDisposable
         if (newPerson.Id == Guid.Empty) throw new InvalidOperationException("person id is invalid");
         if (Exists(newPerson.Id)) throw new InvalidOperationException("person already exists");
         _collection.Insert(newPerson);
+    }
+
+    public void UpdatePerson(Person person)
+    {
+        if (!Exists(person.Id)) throw new InvalidOperationException("person does not exist");
+        _collection.Update(person);
     }
 
     public void Dispose()
