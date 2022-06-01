@@ -5,7 +5,8 @@ namespace AddressBook.Entities.Person.Queries;
 
 public class QueryHandlers : 
     IQueryHandler<GetAllPersonsQuery, IEnumerable<Person>>,
-    IQueryHandler<GetPersonByIdQuery, Person?>
+    IQueryHandler<GetPersonByIdQuery, Person?>,
+    IQueryHandler<SearchPersonsQuery, IEnumerable<Person>>
 {
     private readonly IPersonService _personService;
 
@@ -19,4 +20,7 @@ public class QueryHandlers :
 
     public Task<Person?> Handle(GetPersonByIdQuery query, CancellationToken cancellationToken = default)
         => Task.FromResult(_personService.GetPersonById(query.Id));
+
+    public Task<IEnumerable<Person>> Handle(SearchPersonsQuery query, CancellationToken cancellationToken = default)
+        => Task.FromResult(_personService.SearchPersons(query.Search));
 }

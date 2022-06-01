@@ -1,4 +1,5 @@
 ﻿using AddressBook.Entities.Person;
+using AddressBook.Entities.Person.Commands;
 using AddressBook.Entities.Person.Queries;
 using AddressBook.Infrastructure.Messages;
 using Microsoft.AspNetCore.Mvc;
@@ -17,5 +18,19 @@ public class Details : PageModel
     {
         Person = await query(new GetPersonByIdQuery(PersonId));
         return Person is not null ? Page() : NotFound();
+    }
+
+    public async Task<IActionResult> OnPostAddAddress(string street, string zipCode, 
+        [FromServices] CommandHandler<AddAddressToPerson> command)
+    {
+        await command(new AddAddressToPerson(PersonId, street, zipCode));
+        return RedirectToPage();
+    }
+
+    public async Task<IActionResult> OnPostDeleteAddress(string street, string zipCode,
+        [FromServices] CommandHandler<DeleteAddressFromPerson> command)
+    {
+        await command(new DeleteAddressFromPerson(PersonId, street, zipCode));
+        return RedirectToPage();
     }
 }

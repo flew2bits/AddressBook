@@ -23,4 +23,9 @@ public class PersonService : IPersonService
         if (_data.ContainsKey(newPerson.Id)) throw new InvalidOperationException("person already exists");
         if (!_data.TryAdd(newPerson.Id, newPerson)) throw new InvalidOperationException("could not add person");
     }
+
+    public void UpdatePerson(Person person)
+    {
+        throw new NotImplementedException();
+    }
 }
