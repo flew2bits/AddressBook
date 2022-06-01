@@ -40,10 +40,12 @@
 </form>
 
 
-{
-
+    
 @foreach (var socialMedia in Model.Person!.SocialMedia)
 {
+    <div>@socialMedia.Type @socialMedia.Username</div>
+
+}
 
  <form method="post" asp-page-handler="SocialMedia">
 
@@ -64,8 +66,6 @@
     <input type="submit" value="Submit" />
 
 </form>
-    
-}
 
- 
-}
+
+

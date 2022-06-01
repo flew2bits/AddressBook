@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.ConfigureAppConfiguration(webBuilder => webBuilder.AddJsonFile("ApplicationSettings.json"));
+
 
 // Add services to the container.
 builder.Services
