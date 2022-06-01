@@ -1,5 +1,7 @@
 using AddressBook.Entities.Person;
 using AddressBook.Infrastructure.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,14 @@ builder.Services
     .Configure<LiteDbPersonServiceOptions>(options => options.DatabasePath = "addresses.db")
     .AddSingleton<IPersonService, LiteDbPersonService>()
     .AddRazorPages();
+
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+    })
+    .AddCookie()
+    .AddOpenIdConnect();
 
 var app = builder.Build();
 
