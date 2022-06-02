@@ -16,6 +16,7 @@ public static class PersonConfiguration
         services.AddCommandHandler<AddPhoneNumberCommand, CommandHandlers>();
         services.AddCommandHandler<DeletePhoneNumberFromPerson, CommandHandlers>();
         services.AddCommandHandler<AddSocialMediaCommand, CommandHandlers>();
+        services.AddCommandHandler<DeleteSocialMediaFromPerson, CommandHandlers>();
         return services;
     }
 }

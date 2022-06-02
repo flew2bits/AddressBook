@@ -53,6 +53,12 @@ namespace AddressBook.Pages
             return RedirectToPage();
         }
 
+        public async Task<IActionResult> OnPostDeleteSocialMedia(string type, string username, [FromServices] CommandHandler<DeleteSocialMediaFromPerson> command)
+        {
+            await command(new DeleteSocialMediaFromPerson(PersonId, type, username));
+            return RedirectToPage();
+        }
+
 
     }
 }

@@ -6,6 +6,11 @@
 <code>@System.Text.Json.JsonSerializer.Serialize(Model.Person)</code>
 @Model.Person!.FirstName
 @Model.Person!.LastName
+
+
+
+
+
 @foreach (var address in Model.Person!.Addresses)
 {
     <div>@address.Street, @address.ZipCode</div>
@@ -22,6 +27,11 @@
     <input type="text" name="ZipCode" />
     <button type="submit">Add Address</button>
 </form>
+
+
+
+
+
 
 @foreach (var phoneNumber in Model.Person!.PhoneNumbers)
 {
@@ -40,14 +50,24 @@
 </form>
 
 
-    
+
+
+
+
+
+
 @foreach (var socialMedia in Model.Person!.SocialMedia)
 {
     <div>@socialMedia.Type @socialMedia.Username</div>
+    <form method="post" asp-page-handler="DeleteSocialMedia">
+        <input type="hidden" name="SocialMedia" value="@socialMedia.Type" />
+        <input type="hidden" name="SocialMedia" value="@socialMedia.Username" />
+        <button type="submit">Delete Username</button>
+    </form>
 
 }
 
- <form method="post" asp-page-handler="SocialMedia">
+<form method="post" asp-page-handler="SocialMedia">
 
     <label for="socialMedia"> Choose your Social Media: </label>
 
@@ -59,8 +79,8 @@
     </select>
 
     <br />
-        <label for="socialMedia">Enter your Social Media Username: </label>
-        <input type="text" name="SocialMedia" />
+    <label for="socialMedia">Enter your Social Media Username: </label>
+    <input type="text" name="SocialMedia" />
     <br />
 
     <input type="submit" value="Submit" />

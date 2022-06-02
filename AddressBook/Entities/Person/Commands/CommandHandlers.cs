@@ -3,7 +3,7 @@ using AddressBook.Infrastructure.Messages;
 
 namespace AddressBook.Entities.Person.Commands
 {
-    public class CommandHandlers : ICommandHandler<AddPersonCommand>, ICommandHandler<AddAddressToPersonCommand>, ICommandHandler<DeleteAddressFromPersonCommand>, ICommandHandler<AddPhoneNumberCommand>, ICommandHandler<DeletePhoneNumberFromPerson>, ICommandHandler<AddSocialMediaCommand>
+    public class CommandHandlers : ICommandHandler<AddPersonCommand>, ICommandHandler<AddAddressToPersonCommand>, ICommandHandler<DeleteAddressFromPersonCommand>, ICommandHandler<AddPhoneNumberCommand>, ICommandHandler<DeletePhoneNumberFromPerson>, ICommandHandler<AddSocialMediaCommand>, ICommandHandler<DeleteSocialMediaFromPerson>
 
     {
         private readonly IPersonService _personService;
@@ -74,6 +74,20 @@ namespace AddressBook.Entities.Person.Commands
             var match = _personService.GetPersonById(command.Id);
             if (match is null) throw new InvalidOperationException("Could Not Find Person");
             match = match with { SocialMedia = match.SocialMedia.Append(new SocialMedia(command.Type, command.Username)).ToArray() };
+            _personService.UpdatePerson(match);
+            return Task.CompletedTask;
+        }
+
+        public Task Handle(DeleteSocialMediaFromPerson command, CancellationToken cancellationToken = default)
+        {
+            var match = _personService.GetPersonById(command.Id);
+            if (match is null) throw new InvalidOperationException("Could Not Find Person");
+            match = match with
+            {
+                SocialMedia = match.SocialMedia
+                .Where(socialMedia => !(socialMedia.Username == command.Username && socialMedia.Type == command.Type))
+                .ToArray()
+            };
             _personService.UpdatePerson(match);
             return Task.CompletedTask;
         }
