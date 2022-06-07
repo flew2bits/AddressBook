@@ -30,9 +30,6 @@
 
 
 
-
-
-
 @foreach (var phoneNumber in Model.Person!.PhoneNumbers)
 {
     <div>@phoneNumber.Number</div>
@@ -51,11 +48,6 @@
 
 
 
-
-
-
-
-
 @foreach (var socialMedia in Model.Person!.SocialMedia)
 {
     <div>@socialMedia.Type @socialMedia.Username</div>
@@ -71,7 +63,7 @@
 
     <label for="socialMedia"> Choose your Social Media: </label>
 
-    <select name="socialMedia" id="socialMedia">
+    <select name="type" id="socialMedia">
         <option value="facebook">Facebook</option>
         <option value="twitter">Twitter</option>
         <option value="tiktok">TikTok</option>
@@ -80,7 +72,7 @@
 
     <br />
     <label for="socialMedia">Enter your Social Media Username: </label>
-    <input type="text" name="SocialMedia" />
+    <input type="text" name="username" />
     <br />
 
     <input type="submit" value="Submit" />
