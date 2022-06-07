@@ -14,7 +14,9 @@ namespace AddressBook.Entities.Person.Commands
         }
         public Task Handle(AddPersonCommand command, CancellationToken cancellationToken = default)
         {
-            _personService.AddPerson(new Person(command.Id, command.FirstName, command.LastName, Array.Empty<Address>(), Array.Empty<PhoneNumber>(), Array.Empty<SocialMedia>()));
+            _personService.AddPerson(new Person(command.Id, command.FirstName, command.LastName, 
+                Array.Empty<Address>(), Array.Empty<PhoneNumber>(), Array.Empty<SocialMedia>(),
+                false));
             return Task.CompletedTask;
 
         }

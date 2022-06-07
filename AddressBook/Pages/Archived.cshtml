@@ -1,0 +1,7 @@
+﻿@page
+@model AddressBook.Pages.Archived
+
+@foreach (var archived in Model.Persons)
+{
+    <div>@archived.FirstName @archived.LastName</div>
+}

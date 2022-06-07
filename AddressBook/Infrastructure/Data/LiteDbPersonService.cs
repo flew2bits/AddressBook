@@ -10,7 +10,9 @@ public sealed class LiteDbPersonService : IPersonService, IDisposable
     {
         BsonMapper.Global.Entity<Person>()
             .Id(p => p.Id)
-            .Ctor(doc => new Person(doc["_id"].AsGuid, doc["FirstName"].AsString, doc["LastName"].AsString, Array.Empty<Address>(), Array.Empty<PhoneNumber>(), Array.Empty<SocialMedia>()));
+            .Ctor(doc => new Person(doc["_id"].AsGuid, doc["FirstName"].AsString, 
+                doc["LastName"].AsString, Array.Empty<Address>(), 
+                Array.Empty<PhoneNumber>(), Array.Empty<SocialMedia>(), false));
     }
 
     private readonly LiteDatabase _db;

@@ -18,9 +18,9 @@ public class IndexModel : PageModel
         _logger = logger;
     }
 
-    public async Task OnGet([FromServices] QueryHandler<GetAllPersonQuery, IEnumerable<Person>> query)
+    public async Task OnGet([FromServices] QueryHandler<GetActivePersonsQuery, IEnumerable<Person>> query)
     {
-        Persons = await query(new GetAllPersonQuery());
+        Persons = await query(new GetActivePersonsQuery());
     }
 
     public async Task<IActionResult> OnPost(string firstName, string lastName, [FromServices] CommandHandler<AddPersonCommand> command)
